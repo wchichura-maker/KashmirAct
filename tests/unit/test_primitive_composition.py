@@ -9,6 +9,9 @@ from src.game.characters.primitives.composition import (
     PrimitiveCompositionResolver,
 )
 
+from src.game.characters.primitives.playback import (
+    PrimitivePlayback,
+)
 
 class PrimitiveCompositionTests(unittest.TestCase):
 
@@ -218,6 +221,175 @@ class PrimitiveCompositionTests(unittest.TestCase):
         self.assertAlmostEqual(lunge.displacement_x, 3.0, places=6)
         self.assertAlmostEqual(lunge.displacement_y, 0.0, places=6)
 
+    def test_playback_preserves_primitive_order(self):
+        composition = PrimitiveComposition(
+            composition_id="playback-step-turn-lunge",
+            requests=(
+                PrimitiveRequest("step", direction_y=1.0),
+                PrimitiveRequest("turn"),
+                PrimitiveRequest("lunge", direction_y=1.0),
+            ),
+        )
+
+        result = PrimitivePlayback.resolve(
+            composition,
+            self.catalog,
+        )
+
+        self.assertEqual(
+            [step.result.primitive_id for step in result.steps],
+            ["step", "turn", "lunge"],
+        )
+
+    def test_playback_accumulates_duration(self):
+        composition = PrimitiveComposition(
+            composition_id="playback-duration",
+            requests=(
+                PrimitiveRequest("step", direction_y=1.0),
+                PrimitiveRequest("turn"),
+                PrimitiveRequest("lunge", direction_y=1.0),
+            ),
+        )
+
+        result = PrimitivePlayback.resolve(
+            composition,
+            self.catalog,
+        )
+
+        self.assertAlmostEqual(
+            result.total_duration,
+            0.25 + 0.1 + 0.5,
+            places=6,
+        )
+
+    def test_playback_tracks_elapsed_time_per_step(self):
+        composition = PrimitiveComposition(
+            composition_id="playback-timeline",
+            requests=(
+                PrimitiveRequest("step", direction_y=1.0),
+                PrimitiveRequest("turn"),
+                PrimitiveRequest("lunge", direction_y=1.0),
+            ),
+        )
+
+        result = PrimitivePlayback.resolve(
+            composition,
+            self.catalog,
+        )
+
+        self.assertAlmostEqual(
+            result.steps[0].elapsed_before,
+            0.0,
+            places=6,
+        )
+        self.assertAlmostEqual(
+            result.steps[0].elapsed_after,
+            0.25,
+            places=6,
+        )
+
+        self.assertAlmostEqual(
+            result.steps[1].elapsed_before,
+            0.25,
+            places=6,
+        )
+        self.assertAlmostEqual(
+            result.steps[1].elapsed_after,
+            0.35,
+            places=6,
+        )
+
+        self.assertAlmostEqual(
+            result.steps[2].elapsed_before,
+            0.35,
+            places=6,
+        )
+        self.assertAlmostEqual(
+            result.steps[2].elapsed_after,
+            0.85,
+            places=6,
+        )
+
+    def test_playback_preserves_composition_rotation(self):
+        composition = PrimitiveComposition(
+            composition_id="playback-rotation",
+            requests=(
+                PrimitiveRequest("step", direction_y=1.0),
+                PrimitiveRequest("turn"),
+                PrimitiveRequest("lunge", direction_y=1.0),
+            ),
+        )
+
+        result = PrimitivePlayback.resolve(
+            composition,
+            self.catalog,
+        )
+
+        self.assertEqual(
+            result.final_rotation_degrees,
+            90.0,
+        )
+
+    def test_playback_supports_duration_override(self):
+        composition = PrimitiveComposition(
+            composition_id="playback-duration-override",
+            requests=(
+                PrimitiveRequest(
+                    "step",
+                    direction_y=1.0,
+                    duration_override=0.5,
+                ),
+                PrimitiveRequest("turn"),
+            ),
+        )
+
+        result = PrimitivePlayback.resolve(
+            composition,
+            self.catalog,
+        )
+
+        self.assertAlmostEqual(
+            result.total_duration,
+            0.6,
+            places=6,
+        )
+
+    def test_empty_playback_is_complete(self):
+        composition = PrimitiveComposition(
+            composition_id="empty-playback",
+            requests=(),
+        )
+
+        result = PrimitivePlayback.resolve(
+            composition,
+            self.catalog,
+        )
+
+        self.assertEqual(result.steps, ())
+        self.assertTrue(result.completed)
+        self.assertEqual(result.total_duration, 0.0)
+
+    def test_playback_is_deterministic(self):
+        composition = PrimitiveComposition(
+            composition_id="deterministic-playback",
+            requests=(
+                PrimitiveRequest("step", direction_y=1.0),
+                PrimitiveRequest("turn"),
+                PrimitiveRequest("lunge", direction_y=1.0),
+            ),
+        )
+
+        first = PrimitivePlayback.resolve(
+            composition,
+            self.catalog,
+        )
+
+        second = PrimitivePlayback.resolve(
+            composition,
+            self.catalog,
+        )
+
+        self.assertEqual(first, second)
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,68 @@
+{
+  "composition_id": "composition_step_turn_lunge",
+  "completed": true,
+  "total_duration": 0.8,
+  "final_rotation_degrees": 90.0,
+  "steps": [
+    {
+      "index": 0,
+      "elapsed_before": 0.0,
+      "elapsed_after": 0.2,
+      "result": {
+        "primitive_id": "primitive_step",
+        "velocity": {
+          "x": 0.0,
+          "y": 5.999999999999999
+        },
+        "rotation_degrees": 0.0,
+        "displacement": {
+          "x": 0.0,
+          "y": 1.2
+        },
+        "phase": "active",
+        "completed": true,
+        "events": []
+      }
+    },
+    {
+      "index": 1,
+      "elapsed_before": 0.2,
+      "elapsed_after": 0.30000000000000004,
+      "result": {
+        "primitive_id": "primitive_turn",
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "rotation_degrees": 90.0,
+        "displacement": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "phase": "active",
+        "completed": true,
+        "events": []
+      }
+    },
+    {
+      "index": 2,
+      "elapsed_before": 0.30000000000000004,
+      "elapsed_after": 0.8,
+      "result": {
+        "primitive_id": "primitive_lunge",
+        "velocity": {
+          "x": -6.0,
+          "y": 3.6739403974420594e-16
+        },
+        "rotation_degrees": 0.0,
+        "displacement": {
+          "x": -3.0,
+          "y": 1.8369701987210297e-16
+        },
+        "phase": "active",
+        "completed": true,
+        "events": []
+      }
+    }
+  ]
+}

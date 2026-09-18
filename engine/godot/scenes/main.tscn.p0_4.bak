@@ -1,10 +1,8 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://engine/godot/scenes/main.gd" id="1_main"]
 [ext_resource type="Script" path="res://engine/godot/characters/character_runtime.gd" id="2_character"]
 [ext_resource type="PackedScene" path="res://engine/godot/characters/test_humanoid.tscn" id="3_humanoid"]
-[ext_resource type="Script" path="res://engine/godot/debug/primitive_visual_harness.gd" id="4_harness"]
-[ext_resource type="Resource" path="res://engine/godot/characters/heavy_movement_profile.tres" id="5_heavy_profile"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_floor"]
 size = Vector3(30, 0.2, 30)
@@ -31,7 +29,7 @@ mesh = SubResource("BoxMesh_floor")
 shape = SubResource("BoxShape_floor")
 
 [node name="Character" type="CharacterBody3D" parent="."]
-position = Vector3(-2, 1, 0)
+position = Vector3(0, 1, 0)
 script = ExtResource("2_character")
 
 [node name="Visual" parent="Character" instance=ExtResource("3_humanoid")]
@@ -39,21 +37,7 @@ script = ExtResource("2_character")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Character"]
 shape = SubResource("CapsuleShape_character")
 
-[node name="HeavyCharacter" type="CharacterBody3D" parent="."]
-position = Vector3(2, 1, 0)
-script = ExtResource("2_character")
-movement_profile = ExtResource("5_heavy_profile")
-
-[node name="Visual" parent="HeavyCharacter" instance=ExtResource("3_humanoid")]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HeavyCharacter"]
-shape = SubResource("CapsuleShape_character")
-
-[node name="PrimitiveVisualHarness" type="Node" parent="."]
-script = ExtResource("4_harness")
-character = NodePath("../Character")
-
 [node name="Camera3D" type="Camera3D" parent="."]
-position = Vector3(0, 5, 10)
+position = Vector3(0, 5, 8)
 rotation_degrees = Vector3(-25, 0, 0)
 current = true

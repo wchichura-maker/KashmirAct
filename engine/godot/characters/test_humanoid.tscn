@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_Torso"]
+radius = 0.38
+height = 1.15
+
+[sub_resource type="SphereMesh" id="SphereMesh_Head"]
+radius = 0.28
+height = 0.56
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_Arm"]
+radius = 0.12
+height = 0.75
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_Leg"]
+radius = 0.15
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="Material_Body"]
+albedo_color = Color(0.25, 0.55, 0.9, 1)
+
+[sub_resource type="StandardMaterial3D" id="Material_Limb"]
+albedo_color = Color(0.85, 0.72, 0.5, 1)
+
+[sub_resource type="StandardMaterial3D" id="Material_Head"]
+albedo_color = Color(0.9, 0.75, 0.55, 1)
+
+[node name="TestHumanoid" type="Node3D"]
+
+[node name="Torso" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.15, 0)
+mesh = SubResource("CapsuleMesh_Torso")
+material_override = SubResource("Material_Body")
+
+[node name="Head" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.95, 0)
+mesh = SubResource("SphereMesh_Head")
+material_override = SubResource("Material_Head")
+
+[node name="Arm_L" type="MeshInstance3D" parent="."]
+position = Vector3(-0.5, 1.25, 0)
+rotation_degrees = Vector3(0, 0, -8)
+mesh = SubResource("CapsuleMesh_Arm")
+material_override = SubResource("Material_Limb")
+
+[node name="Arm_R" type="MeshInstance3D" parent="."]
+position = Vector3(0.5, 1.25, 0)
+rotation_degrees = Vector3(0, 0, 8)
+mesh = SubResource("CapsuleMesh_Arm")
+material_override = SubResource("Material_Limb")
+
+[node name="Leg_L" type="MeshInstance3D" parent="."]
+position = Vector3(-0.2, 0.48, 0)
+mesh = SubResource("CapsuleMesh_Leg")
+material_override = SubResource("Material_Body")
+
+[node name="Leg_R" type="MeshInstance3D" parent="."]
+position = Vector3(0.2, 0.48, 0)
+mesh = SubResource("CapsuleMesh_Leg")
+material_override = SubResource("Material_Body")
