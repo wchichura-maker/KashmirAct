@@ -18,3 +18,4 @@ Copies in this tree must match the original files byte-for-byte. Architecture no
 ## Bootstrap record
 
 - [bootstrap/BOOTSTRAP_0.md](bootstrap/BOOTSTRAP_0.md)
+- [p0/phases/PHASE_02.md](p0/phases/PHASE_02.md)

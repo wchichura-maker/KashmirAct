@@ -6,7 +6,7 @@ This repository is developed **system-first**. Content is a consequence of syste
 
 ## Current state
 
-**Bootstrap 0.** Source-of-truth documents, project constitution, and portable architecture are in place. Gameplay is **not** implemented. Runtime validation does not yet apply.
+**P0 Phase 02.** Core data, entity IDs, immutable events, and the Rule Validator slice are implemented as a headless Python reference. Player controller, camera, combat, Godot scenes, and animation are **not** implemented.
 
 P0 must prove this chain:
 
@@ -85,4 +85,4 @@ VR, MMORPG, multiplayer, open-world streaming, professions, deep crafting, full 
 
 ## Next
 
-The smallest next step is P0 Phase 02: Core data, entity IDs, and the event contract — still without combat implementation.
+The smallest next step is P0 Phase 03: Player controller — input to logical intent — still without combat resolution.

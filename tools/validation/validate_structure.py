@@ -24,6 +24,7 @@ REQUIRED_PATHS = [
     "project.godot",
     "docs/foundation/KashmirAct_Fundacao_v0.1.md",
     "docs/p0/KashmirAct_Prototype0_Specification_v0.1.md",
+    "docs/p0/phases/PHASE_02.md",
     "docs/architecture/AUTHORITY.md",
     "docs/architecture/ARCHITECTURE.md",
     "docs/architecture/DECISIONS.md",
@@ -34,13 +35,25 @@ REQUIRED_PATHS = [
     "project/config/engine.json",
     "project/config/p0_scope.json",
     "src/core/README.md",
+    "src/core/__init__.py",
+    "src/core/ids/entity_id.py",
+    "src/core/data/attributes.py",
+    "src/core/data/catalog.py",
+    "src/core/events/bus.py",
+    "src/core/rules/validator.py",
     "src/game/README.md",
     "src/ui/README.md",
     "engine/godot/README.md",
     "data/README.md",
+    "data/rules/entity_types.json",
+    "data/rules/attributes.json",
     "assets/README.md",
     "tests/generalization/README.md",
+    "tests/unit/test_ids.py",
+    "tests/unit/test_attributes.py",
+    "tests/unit/test_events.py",
     "tools/validation/validate_structure.py",
+    "tools/validation/run_core_tests.py",
 ]
 
 REQUIRED_DIRS = [
@@ -132,7 +145,8 @@ def main() -> int:
     print(f"  dirs checked: {len(REQUIRED_DIRS)}")
     print(f"  foundation sha256: {EXPECTED_HASHES[FOUNDATION]}")
     print(f"  p0 spec sha256: {EXPECTED_HASHES[P0_SPEC]}")
-    print("  gameplay implementation: none (as required for Bootstrap 0)")
+    print("  combat/godot gameplay implementation: none")
+    print("  core phase 02 (ids/attributes/events): present")
     return 0
 
 

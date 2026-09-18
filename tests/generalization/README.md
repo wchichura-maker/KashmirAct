@@ -1,14 +1,5 @@
 # Generalization tests
 
-Required as a concept from Bootstrap 0.
+Prove that Character A and Character B (here: `player_001` and `enemy_001`) use the same Core.
 
-When characters exist, these tests must prove:
-
-```text
-Character A + Character B
-on the same Core
-```
-
-Adding a character, weapon, or animation profile must not require Core changes of the form `if character == X`.
-
-Empty until there is a Core to generalize.
+Adding an entity type such as `trainee` is done through the type registry, not a Core `if`.

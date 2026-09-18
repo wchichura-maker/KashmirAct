@@ -1,0 +1,15 @@
+{
+  "schema_version": "0.1",
+  "types": [
+    {"id": "player", "description": "Player actor"},
+    {"id": "enemy", "description": "Enemy actor"},
+    {"id": "weapon", "description": "Weapon definition or instance"},
+    {"id": "attack", "description": "Attack definition"},
+    {"id": "primitive", "description": "Motion primitive"},
+    {"id": "attribute", "description": "Attribute definition"},
+    {"id": "event", "description": "Runtime event"},
+    {"id": "session", "description": "Play session"},
+    {"id": "pattern", "description": "Detected action pattern"},
+    {"id": "candidate", "description": "Mock discovery candidate"}
+  ]
+}

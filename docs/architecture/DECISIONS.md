@@ -57,3 +57,18 @@ Status values: `confirmed` (Foundation), `provisional` (explicitly not final), `
 - **Status:** bootstrap / provisional engine binding
 - **Decision:** `project.godot` lives at repo root so the P0 engine can open the project. `.gdignore` excludes docs/tests/tools.
 - **Not implemented:** scenes, autoloads, input map, main scene.
+
+## ADR-0010 — Core Phase 02 language
+
+- **Status:** bootstrap / provisional implementation
+- **Decision:** Phase 02 Core (IDs, attributes, events, validator slice) is a Python 3 reference that runs without Godot.
+- **Why:** Core must be callable without a renderer (P0 spec §38, §66). Godot is not available in the bootstrap environment; a Python reference is testable now.
+- **Not decided:** production language. Godot adapters will bind to the same contracts. This does not replace ADR-0001.
+
+## ADR-0011 — P0 attribute magnitudes
+
+- **Status:** provisional laboratory values
+- **Decision:** `attribute_health_001` and `attribute_stamina_001` use min 0, max 100, default 100.
+- **Why:** P0 spec §7 names health and stamina but does not specify numeric bounds. Tests need explicit values.
+- **Not decided:** final game balance.
+

@@ -6,4 +6,4 @@
 | `game/` | Game systems that use Core |
 | `ui/` | Development UI only in P0 |
 
-No gameplay code is present in Bootstrap 0. Directories reserve the architecture; they do not implement systems.
+Phase 02 implements Core data, IDs, and events. `game/` and `ui/` still have no runtime code.

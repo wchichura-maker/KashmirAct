@@ -22,11 +22,14 @@ Recorded because they are unspecified or explicitly provisional. Do not fill the
 13. Determinism tests allow timestamp differences unless simulation time is controlled.
 14. Session/save format beyond `schema_version: "0.1"` is not fully specified.
 15. Pattern confidence formula is required to be documented in code when implemented; it does not exist yet.
+16. Health / stamina numeric bounds are unspecified in the Foundation and P0 spec. ADR-0011 records laboratory values 0–100 / default 100. Not final balance.
+17. Attribute regeneration rates are unspecified. Phase 02 default is `0` until the stamina system (Phase 11) configures them.
+
 
 ## Conflicts identified
 
-16. **Directory tree:** P0 spec §5 is Godot-module shaped (`core/`, `character/`, `weapons/`). Bootstrap 0 requires `src/core` vs `src/game` and engine portability. **Resolution:** mapping in `LAYER_MAP.md`. Both descriptions are preserved. Implementation follows the portable tree.
-17. **Development order vs folder creation:** P0 spec §54 starts with Project + Git + architecture (this bootstrap). Later phases must not be pre-implemented as empty systems.
+18. **Directory tree:** P0 spec §5 is Godot-module shaped (`core/`, `character/`, `weapons/`). Bootstrap 0 requires `src/core` vs `src/game` and engine portability. **Resolution:** mapping in `LAYER_MAP.md`. Both descriptions are preserved. Implementation follows the portable tree.
+19. **Development order vs folder creation:** P0 spec §54 starts with Project + Git + architecture (this bootstrap). Later phases must not be pre-implemented as empty systems.
 
 ## Not gaps
 
