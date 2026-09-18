@@ -1,0 +1,39 @@
+{
+  "schema_version": "0.1",
+  "prototype": "P0",
+  "kind": "technical_laboratory",
+  "in_scope": [
+    "third_person_movement",
+    "camera",
+    "sword",
+    "three_attacks",
+    "dodge",
+    "block",
+    "parry",
+    "stamina",
+    "hit_detection",
+    "damage",
+    "hand_ik",
+    "enemy",
+    "telemetry",
+    "behavior_profile",
+    "pattern_detection",
+    "debug_overlay"
+  ],
+  "out_of_scope": [
+    "vr",
+    "mmorpg",
+    "multiplayer",
+    "open_world_streaming",
+    "quest_system",
+    "factions",
+    "economy",
+    "professions",
+    "deep_crafting",
+    "full_skill_composer",
+    "discovery_agent",
+    "llm_gameplay_authority",
+    "procedural_world_generation",
+    "final_art"
+  ]
+}

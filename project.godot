@@ -1,0 +1,14 @@
+; KashmirAct P0 — Godot project stub.
+; Engine binding is PROVISIONAL (Foundation v0.1 §35–36; P0 spec §1, §66).
+; Core rules and data architecture must not depend on this file.
+; This file exists to make the repository Godot-openable. It does not implement gameplay.
+
+config_version=5
+
+[application]
+config/name="KashmirAct"
+config/description="P0 technical prototype. Engine choice is provisional."
+config/features=PackedStringArray("4.6", "Forward Plus")
+
+[rendering]
+renderer/rendering_method="forward_plus"

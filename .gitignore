@@ -1,0 +1,41 @@
+# Godot 4
+.godot/
+.import/
+export.cfg
+export_presets.cfg
+*.translation
+
+# Exports / binaries
+export/
+build/
+*.pck
+*.exe
+*.apk
+*.aab
+*.zip
+*.tar.gz
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*~
+*.code-workspace
+
+# Python tooling
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+
+# Logs and local dumps
+*.log
+*.tmp
+
+# Runtime telemetry sessions (fixtures belong under tests/)
+telemetry/session_*.json

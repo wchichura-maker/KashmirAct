@@ -1,0 +1,7 @@
+# Keep Godot from importing non-engine trees.
+docs/
+tests/
+tools/
+.git/
+.kashmir/
+project/
