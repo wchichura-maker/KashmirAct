@@ -6,21 +6,21 @@ This repository is developed **system-first**. Content is a consequence of syste
 
 ## Current state
 
-**P0 Phase 02.** Core data, entity IDs, immutable events, and the Rule Validator slice are implemented as a headless Python reference. Player controller, camera, combat, Godot scenes, and animation are **not** implemented.
+**P0 Phase 03.4.** Core data, entity IDs, immutable events, Rule Validator, input/intent, locomotion, Godot runtime, and the minimum runtime scene are implemented. Interactive movement validation remains the current gate.
 
 P0 must prove this chain:
 
 ```text
 PLAYER INPUT
-→ MOVEMENT / INTENT
-→ MOTION PRIMITIVE
-→ WEAPON
-→ ANIMATION / IK
-→ HIT DETECTION
-→ DAMAGE
-→ TELEMETRY
-→ BEHAVIOR ANALYSIS
-→ PATTERN DETECTION
+â†’ MOVEMENT / INTENT
+â†’ MOTION PRIMITIVE
+â†’ WEAPON
+â†’ ANIMATION / IK
+â†’ HIT DETECTION
+â†’ DAMAGE
+â†’ TELEMETRY
+â†’ BEHAVIOR ANALYSIS
+â†’ PATTERN DETECTION
 ```
 
 ## Philosophy
@@ -77,7 +77,7 @@ project/       project configuration
 .kashmir/      constitution and knowledge graph
 ```
 
-Core ≠ Game ≠ Data ≠ Assets ≠ Tests ≠ Tools ≠ Engine.
+Core â‰  Game â‰  Data â‰  Assets â‰  Tests â‰  Tools â‰  Engine.
 
 ## Out of scope for P0
 
@@ -85,4 +85,4 @@ VR, MMORPG, multiplayer, open-world streaming, professions, deep crafting, full 
 
 ## Next
 
-The smallest next step is P0 Phase 03: Player controller — input to logical intent — still without combat resolution.
+The smallest next step is P0 Phase 03: Player controller â€” input to logical intent â€” still without combat resolution.

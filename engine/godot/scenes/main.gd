@@ -7,9 +7,8 @@ const CAMERA_OFFSET := Vector3(0.0, 5.0, 8.0)
 
 
 func _ready() -> void:
-    print("KASHMIRACT P0 — PHASE 03.4")
     print("Runtime scene initialized.")
-    print("Input → Intent → Locomotion → CharacterBody3D")
+    print("Input -> Intent -> Locomotion -> CharacterBody3D")
 
     camera.global_position = character.global_position + CAMERA_OFFSET
 

@@ -1,7 +1,0 @@
-extends Node3D
-
-
-func _ready() -> void:
-    print("KASHMIRACT P0 — PHASE 03.4")
-    print("Runtime scene initialized.")
-    print("Input → Intent → Locomotion → CharacterBody3D")
