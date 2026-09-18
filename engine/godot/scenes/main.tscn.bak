@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://engine/godot/scenes/main.gd" id="1_main"]
+[ext_resource type="Script" path="res://engine/godot/characters/character_runtime.gd" id="2_character"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_floor"]
+size = Vector3(30, 0.2, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape_floor"]
+size = Vector3(30, 0.2, 30)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_character"]
+radius = 0.5
+height = 1.8
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape_character"]
+radius = 0.5
+height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="Material_character"]
+shading_mode = 1
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_main")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-55, -30, 0)
+shadow_enabled = true
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="Mesh" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_floor")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape_floor")
+
+[node name="Character" type="CharacterBody3D" parent="."]
+position = Vector3(0, 1, 0)
+script = ExtResource("2_character")
+
+[node name="Mesh" type="MeshInstance3D" parent="Character"]
+mesh = SubResource("CapsuleMesh_character")
+material_override = SubResource("Material_character")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Character"]
+shape = SubResource("CapsuleShape_character")
+
+[node name="Camera3D" type="Camera3D" parent="Character"]
+position = Vector3(0, 5, 8)
+rotation_degrees = Vector3(-25, 0, 0)
+current = true

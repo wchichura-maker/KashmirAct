@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Bootstrap 0 structure gate. Not a gameplay test."""
+"""KashmirAct structure gate.
+
+The validator evolves with the active P0 implementation phase.
+Fundamental source documents remain immutable; implementation files are
+validated according to explicit phase allowances.
+"""
 from __future__ import annotations
 
 import hashlib
@@ -11,7 +16,6 @@ ROOT = Path(__file__).resolve().parents[2]
 FOUNDATION = ROOT / "docs/foundation/KashmirAct_Fundacao_v0.1.md"
 P0_SPEC = ROOT / "docs/p0/KashmirAct_Prototype0_Specification_v0.1.md"
 
-# Recorded from the Bootstrap 0 input documents.
 EXPECTED_HASHES = {
     FOUNDATION: "993d0e6d87573719418b7f9f88f0a67a1de654ced4c3cd30db95d5ce8bfd1f16",
     P0_SPEC: "4c457561f9bbee9b63648bfff5b7e4de2f99443b6171034f0f0b86120ab6d351",
@@ -25,6 +29,7 @@ REQUIRED_PATHS = [
     "docs/foundation/KashmirAct_Fundacao_v0.1.md",
     "docs/p0/KashmirAct_Prototype0_Specification_v0.1.md",
     "docs/p0/phases/PHASE_02.md",
+    "docs/p0/phases/PHASE_03.md",
     "docs/architecture/AUTHORITY.md",
     "docs/architecture/ARCHITECTURE.md",
     "docs/architecture/DECISIONS.md",
@@ -92,16 +97,38 @@ REQUIRED_DIRS = [
     "tools/pipeline",
 ]
 
+# Gameplay implementation remains prohibited inside the portable source tree.
 FORBIDDEN_GAMEPLAY_GLOBS = [
     "src/**/*.gd",
     "src/**/*.cs",
-    "engine/**/*.tscn",
-    "engine/**/*.gd",
+]
+
+# Phase 03.3 is the first explicitly authorized Godot runtime slice.
+# New Godot gameplay modules must be added to this list only when their
+# corresponding phase is architecturally approved.
+PHASE_03_ALLOWED_ENGINE_GLOBS = [
+    "engine/godot/adapters/input_adapter.gd",
+    "engine/godot/characters/input_intent.gd",
+    "engine/godot/characters/movement_profile.gd",
+    "engine/godot/characters/locomotion_result.gd",
+    "engine/godot/characters/locomotion_controller.gd",
+    "engine/godot/characters/character_runtime.gd",
+    "engine/godot/scenes/main.gd",
+    "engine/godot/scenes/main.tscn",
 ]
 
 
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def relative(path: Path) -> str:
+    return path.relative_to(ROOT).as_posix()
+
+
+def matches_any(path: Path, patterns: list[str]) -> bool:
+    rel = relative(path)
+    return any(Path(rel).match(pattern) for pattern in patterns)
 
 
 def main() -> int:
@@ -120,24 +147,44 @@ def main() -> int:
     for path, expected in EXPECTED_HASHES.items():
         if not path.is_file():
             continue
+
         actual = sha256(path)
+
         if actual != expected:
             errors.append(
-                f"HASH MISMATCH: {path.relative_to(ROOT)} expected {expected} got {actual}"
+                f"HASH MISMATCH: {path.relative_to(ROOT)} "
+                f"expected {expected} got {actual}"
             )
 
+    # Explicitly forbidden implementation classes.
     for pattern in FORBIDDEN_GAMEPLAY_GLOBS:
         for hit in ROOT.glob(pattern):
-            errors.append(f"UNEXPECTED GAMEPLAY FILE: {hit.relative_to(ROOT)}")
+            errors.append(
+                f"UNEXPECTED GAMEPLAY FILE: {hit.relative_to(ROOT)}"
+            )
 
-    engine = (ROOT / "project/config/engine.json").read_text(encoding="utf-8")
+    # Godot runtime scripts are allowed only through the active phase allowlist.
+    for hit in ROOT.glob("engine/**/*.gd"):
+        if not matches_any(hit, PHASE_03_ALLOWED_ENGINE_GLOBS):
+            errors.append(
+                f"UNAUTHORIZED GODOT RUNTIME FILE: {hit.relative_to(ROOT)}"
+            )
+
+    engine = (
+        ROOT / "project/config/engine.json"
+    ).read_text(encoding="utf-8")
+
     if '"final_production_decision": false' not in engine:
-        errors.append("engine.json must keep Godot as a non-final production decision")
+        errors.append(
+            "engine.json must keep Godot as a non-final production decision"
+        )
 
     if errors:
         print("FAIL")
+
         for item in errors:
             print(f"  - {item}")
+
         return 1
 
     print("PASS")
@@ -145,8 +192,10 @@ def main() -> int:
     print(f"  dirs checked: {len(REQUIRED_DIRS)}")
     print(f"  foundation sha256: {EXPECTED_HASHES[FOUNDATION]}")
     print(f"  p0 spec sha256: {EXPECTED_HASHES[P0_SPEC]}")
-    print("  combat/godot gameplay implementation: none")
+    print("  phase 03.3 Godot runtime allowlist: active")
+    print("  unauthorized combat/godot gameplay implementation: none")
     print("  core phase 02 (ids/attributes/events): present")
+
     return 0
 
 

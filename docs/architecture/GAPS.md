@@ -4,7 +4,7 @@ Recorded because they are unspecified or explicitly provisional. Do not fill the
 
 ## Provisional decisions (must not be treated as final)
 
-1. Engine: Godot 4.6 for P0 prototyping; Unreal Engine 5 remains a production candidate.
+1. Engine: Godot 4.7.2 for P0 prototyping; Unreal Engine 5 remains a production candidate.
 2. Single-player is the first target; multiplayer is future.
 3. Open world is not decided for production.
 4. Final network architecture is not defined.
@@ -16,7 +16,7 @@ Recorded because they are unspecified or explicitly provisional. Do not fill the
 7. License for the repository is not specified.
 8. CI workflow is not specified.
 9. Exact animation source (placeholder vs temporary production assets) is not chosen.
-10. Exact IK solver (`TwoBoneIK3D` vs others) is left to Godot 4.6 capabilities; gameplay must not depend on one solver.
+10. Exact IK solver (`TwoBoneIK3D` vs others) is left to Godot 4.7.2 capabilities; gameplay must not depend on one solver.
 11. Input map in P0 spec §47 is suggested, not architectural.
 12. Audio is optional for initial technical validation.
 13. Determinism tests allow timestamp differences unless simulation time is controlled.

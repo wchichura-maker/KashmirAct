@@ -5,7 +5,7 @@ Status values: `confirmed` (Foundation), `provisional` (explicitly not final), `
 ## ADR-0001 — Engine for P0
 
 - **Status:** provisional
-- **Decision:** Godot 4.6 is the P0 prototyping platform.
+- **Decision:** Godot 4.7.2 is the P0 prototyping platform.
 - **Not decided:** production engine. Unreal Engine 5 remains a candidate.
 - **Source:** Foundation v0.1 §35–36, P0 spec §1 and §66.
 - **Constraint:** core rules and data architecture stay portable.
@@ -62,7 +62,7 @@ Status values: `confirmed` (Foundation), `provisional` (explicitly not final), `
 
 - **Status:** bootstrap / provisional implementation
 - **Decision:** Phase 02 Core (IDs, attributes, events, validator slice) is a Python 3 reference that runs without Godot.
-- **Why:** Core must be callable without a renderer (P0 spec §38, §66). Godot is not available in the bootstrap environment; a Python reference is testable now.
+- **Why:** Core must be callable without a renderer (P0 spec §38, §66). Godot was not available during Bootstrap 0; a Python reference is testable now.
 - **Not decided:** production language. Godot adapters will bind to the same contracts. This does not replace ADR-0001.
 
 ## ADR-0011 — P0 attribute magnitudes

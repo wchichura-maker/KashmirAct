@@ -3,12 +3,12 @@
   "status": "provisional",
   "p0_engine": {
     "name": "Godot",
-    "version": "4.6",
+    "version": "4.7.2",
     "role": "initial_prototyping_platform",
     "final_production_decision": false
   },
   "production_candidates": [
-    {"name": "Godot", "version": "4.6", "status": "p0_platform"},
+    {"name": "Godot", "version": "4.7.2", "status": "p0_platform"},
     {"name": "Unreal Engine", "version": "5", "status": "serious_production_candidate"}
   ],
   "portability_rule": "Core rules and data architecture must not be coupled to scene presentation, UI, animation assets, rendering, or editor-only systems."
