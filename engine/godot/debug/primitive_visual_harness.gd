@@ -4,7 +4,37 @@ extends Node
 
 var primitive_adapter := KashmirPrimitiveAdapter.new()
 var playback_adapter := KashmirPrimitivePlaybackAdapter.new()
+var playback_runtime := KashmirActionPlaybackRuntime.new()
+var playback_running := false
 var sequence_running := false
+var playback_data: Dictionary = {}
+
+func _result_from_dictionary(data: Dictionary) -> KashmirPrimitiveResult:
+	var velocity_data: Dictionary = data.get("velocity", {})
+	var displacement_data: Dictionary = data.get("displacement", {})
+
+	var typed_events: Array[String] = []
+
+	for event_name in data.get("events", []):
+		typed_events.append(str(event_name))
+
+	return KashmirPrimitiveResult.new(
+		data.get("primitive_id", ""),
+		Vector3(
+			velocity_data.get("x", 0.0),
+			0.0,
+			velocity_data.get("y", 0.0)
+		),
+		data.get("rotation_degrees", 0.0),
+		Vector3(
+			displacement_data.get("x", 0.0),
+			0.0,
+			displacement_data.get("y", 0.0)
+		),
+		data.get("phase", ""),
+		data.get("completed", false),
+		typed_events
+	)
 
 func _ready() -> void:
 	if character == null:
@@ -18,6 +48,36 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif event.keycode == KEY_2:
 			_run_composition("res://data/actions/composition_step_turn_lunge.json")
 
+func _physics_process(delta: float) -> void:
+	if not playback_running:
+		return
+
+	var state := playback_runtime.advance(delta)
+	var step_data := playback_runtime.consume_step()
+
+	if not step_data.is_empty():
+		var result_data: Dictionary = step_data.get("result", {})
+		var result := _result_from_dictionary(result_data)
+
+		if result != null:
+			primitive_adapter.apply_result(character, result)
+
+			print(
+				"Playback step executed: ",
+				step_data.get("index", -1),
+				" primitive=",
+				result.primitive_id,
+				" elapsed=",
+				state.get("elapsed_time", 0.0)
+			)
+
+	if state.get("completed", false):
+		playback_running = false
+
+		print(
+			"Composition playback completed: ",
+			playback_data.get("composition_id", "")
+		)
 
 func _run_primitive(path: String) -> void:
 	if sequence_running:
@@ -39,22 +99,24 @@ func _run_primitive(path: String) -> void:
 
 
 func _run_composition(path: String) -> void:
-	if sequence_running:
+	if playback_running:
 		return
 
-	sequence_running = true
+	var data := _load_json(path)
 
-	var playback_data := _load_json(path)
-
-	if playback_data.is_empty():
-		sequence_running = false
+	if data.is_empty():
 		return
 
-	playback_adapter.apply_playback(character, playback_data)
+	playback_data = data
+	playback_runtime.load_playback(playback_data)
+	playback_running = true
 
-	print("Composition executed: ", playback_data.get("composition_id", ""), " duration=", playback_data.get("total_duration", 0.0), " final_rotation=", playback_data.get("final_rotation_degrees", 0.0))
-
-	sequence_running = false
+	print(
+		"Composition playback started: ",
+		playback_data.get("composition_id", ""),
+		" duration=",
+		playback_data.get("total_duration", 0.0)
+	)
 
 
 func _load_result(path: String) -> KashmirPrimitiveResult:

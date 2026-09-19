@@ -117,6 +117,7 @@ PHASE_03_ALLOWED_ENGINE_GLOBS = [
     "engine/godot/scenes/main.tscn",
     "engine/godot/characters/heavy_movement_profile.gd",
     "engine/godot/debug/primitive_visual_harness.gd",
+    "engine/godot/debug/action_playback_runtime.gd",
     "engine/godot/adapters/primitive_adapter.gd",
     "engine/godot/adapters/primitive_playback_adapter.gd",
     "engine/godot/adapters/primitive_result.gd",
