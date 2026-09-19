@@ -21,7 +21,7 @@ class TransitionRule:
 
     from_action: str
     to_action: str
-    conditions: tuple[str, ...] = ()
+    conditions: tuple[Any, ...] = ()
     required_tags: tuple[str, ...] = ()
     blocked_tags: tuple[str, ...] = ()
     min_time: float = 0.0
@@ -67,7 +67,7 @@ class ActionDefinition:
     composition_id: str
     bindings: tuple[ActionRequestBinding, ...] = ()
     tags: tuple[str, ...] = ()
-    conditions: tuple[str, ...] = ()
+    conditions: tuple[Any, ...] = ()
     transitions: tuple[TransitionRule, ...] = ()
     cancellable: bool = True
     cancel_windows: tuple[ActionPhase, ...] = ()

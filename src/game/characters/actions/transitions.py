@@ -1,5 +1,3 @@
-"""Deterministic resolution of data-driven action transitions."""
-
 from __future__ import annotations
 
 from .conditions import ConditionEvaluator
@@ -7,13 +5,11 @@ from .definitions import ActionContext, ActionDefinition
 
 
 class ActionTransitionResolver:
-    """Resolves valid next actions from data-driven transition rules."""
-
-    def __init__(
-        self,
-        actions: dict[str, ActionDefinition],
-    ) -> None:
+    def __init__(self, actions: dict[str, ActionDefinition]) -> None:
         self._actions = actions
+
+    def action(self, action_id: str) -> ActionDefinition | None:
+        return self._actions.get(action_id)
 
     def resolve(
         self,
@@ -42,16 +38,10 @@ class ActionTransitionResolver:
             ):
                 continue
 
-            if not all(
-                tag in context_tags
-                for tag in transition.required_tags
-            ):
+            if not all(tag in context_tags for tag in transition.required_tags):
                 continue
 
-            if any(
-                tag in context_tags
-                for tag in transition.blocked_tags
-            ):
+            if any(tag in context_tags for tag in transition.blocked_tags):
                 continue
 
             if not all(
@@ -60,18 +50,8 @@ class ActionTransitionResolver:
             ):
                 continue
 
-            valid.append(
-                (
-                    transition.priority,
-                    transition.to_action,
-                )
-            )
+            valid.append((transition.priority, transition.to_action))
 
-        valid.sort(
-            key=lambda item: (-item[0], item[1])
-        )
+        valid.sort(key=lambda item: (-item[0], item[1]))
 
-        return tuple(
-            action_id
-            for _, action_id in valid
-        )
+        return tuple(action_id for _, action_id in valid)
